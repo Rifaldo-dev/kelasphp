@@ -2,6 +2,9 @@
 require_once 'inc/config.php';
 require_once 'assets/template/header.php';
 
+// Include the Material class
+require_once 'class/Material.php';
+
 try {
     // Ambil data pencarian dari form
     $search = isset($_GET['search']) ? '%' . $_GET['search'] . '%' : '%';
@@ -11,16 +14,11 @@ try {
     $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
     $offset = ($page - 1) * $limit;
 
-    // Query untuk mengambil data materi dengan pencarian dan pagination
-    $stmt = $db->prepare("SELECT * FROM materi WHERE judul LIKE ? ORDER BY created_at DESC LIMIT ? OFFSET ?");
-    $stmt->bindValue(1, $search, SQLITE3_TEXT);
-    $stmt->bindValue(2, $limit, SQLITE3_INTEGER);
-    $stmt->bindValue(3, $offset, SQLITE3_INTEGER);
+    // Instantiate the Material class
+    $material = new Material($db);
 
-    $result = $stmt->execute();
-    if ($result === false) {
-        throw new Exception($db->lastErrorMsg());
-    }
+    // Query untuk mengambil data materi dengan pencarian dan pagination
+    $result = $material->getAllMaterials($search, $limit, $offset);
 
     // Hitung total materi untuk pagination
     $countResult = $db->query("SELECT COUNT(*) as total FROM materi WHERE judul LIKE '$search'");
