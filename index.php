@@ -3,7 +3,7 @@ require_once 'inc/config.php';
 require_once 'assets/template/header.php';
 
 // Include the Material class
-require_once 'class/Material.php';
+require_once 'inc/Material.php';
 
 try {
     // Ambil data pencarian dari form
