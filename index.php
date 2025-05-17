@@ -16,7 +16,7 @@ try {
     $stmt->bindValue(1, $search, SQLITE3_TEXT);
     $stmt->bindValue(2, $limit, SQLITE3_INTEGER);
     $stmt->bindValue(3, $offset, SQLITE3_INTEGER);
-    
+
     $result = $stmt->execute();
     if ($result === false) {
         throw new Exception($db->lastErrorMsg());
@@ -28,7 +28,7 @@ try {
     $totalPages = ceil($totalMateri / $limit);
     ?>
 
-    <div class="container py-5">
+    <div class="container py-4 py-lg-5">
         <!-- Form Pencarian -->
         <div class="row mb-5">
             <div class="col-lg-8 mx-auto text-center">
@@ -136,7 +136,7 @@ try {
     <?php
 } catch (Exception $e) {
     // Tampilkan pesan error jika query gagal
-    echo '<div class="container py-5">
+    echo '<div class="container py-4 py-lg-5">
             <div class="alert alert-danger shadow-sm border-0 rounded-3 p-4">
                 <div class="d-flex">
                     <div class="me-3">
